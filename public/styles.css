@@ -11,5 +11,9 @@ h1 {
 
 .create-folder {
   display         : flex;
-  justify-content : center;
+  justify-content : flex-start;
+}
+
+.fav-folders {
+  border: 1px solid black;
 }

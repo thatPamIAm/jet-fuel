@@ -8,6 +8,8 @@ $('.create-folder-btn').on('click', () => {
 
 const createFolder = (inputVal) => {
   $('.folders').append(`
-    <div> ${inputVal} </div>
+    <div class='fav-folders'>
+      <p>${inputVal} </p>
+    </div>
   `)
 }
