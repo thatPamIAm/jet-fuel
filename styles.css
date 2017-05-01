@@ -1,0 +1,9 @@
+body, html {
+  background-color: #CCCCFF;
+  height: 100%;
+}
+
+h1 {
+  text-align: center;
+  font-size: 5em;
+}
