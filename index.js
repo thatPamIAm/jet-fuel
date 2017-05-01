@@ -1,11 +1,13 @@
-const createFolderBtn = $('.create-folder-btn')
-const createFolderInput = $('.create-folder-input')
 
 
-createFolderBtn.on('click', () => {
-  console.log('click');
+
+$('.create-folder-btn').on('click', () => {
+  let inputVal = $('.create-folder-input').val()
+  createFolder(inputVal)
 })
 
-createFolderInput.keyup(() => {
-  console.log('changing');
-})
+const createFolder = (inputVal) => {
+  $('.folders').append(`
+    <div> ${inputVal} </div>
+  `)
+}
