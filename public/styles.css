@@ -1,0 +1,19 @@
+body,
+html {
+  height           : 100%;
+  background-color : #CCCCFF;
+}
+
+h1 {
+  text-align : center;
+  font-size  : 5em;
+}
+
+.create-folder {
+  display         : flex;
+  justify-content : flex-start;
+}
+
+.fav-folders {
+  border: 1px solid black;
+}
