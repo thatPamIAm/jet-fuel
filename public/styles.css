@@ -1,19 +1,32 @@
 body,
 html {
-  height           : 100%;
-  background-color : #CCCCFF;
+  height : 100%;
 }
 
-h1 {
-  text-align : center;
-  font-size  : 5em;
+.jet-fuel {
+  color       : #84D2F6;
+  text-align  : center;
+  font-family : 'Open sans';
+  font-size   : 5em;
+  font-weight : 500;
+  margin-bottom: 30px;
+}
+
+.fuel-span {
+  color : #004264;
 }
 
 .create-folder {
   display         : flex;
-  justify-content : flex-start;
+  justify-content : center;
+
+}
+
+.create-url {
+  display: flex;
+  justify-content: center;
 }
 
 .fav-folders {
-  border: 1px solid black;
+  border : 1px solid black;
 }
