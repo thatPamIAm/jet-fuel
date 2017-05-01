@@ -4,12 +4,12 @@ html {
 }
 
 .jet-fuel {
-  color       : #84D2F6;
-  text-align  : center;
-  font-family : 'Open sans';
-  font-size   : 5em;
-  font-weight : 500;
-  margin-bottom: 30px;
+  margin-bottom : 30px;
+  color         : #84D2F6;
+  text-align    : center;
+  font-family   : 'Open sans';
+  font-size     : 5em;
+  font-weight   : 500;
 }
 
 .fuel-span {
@@ -19,14 +19,50 @@ html {
 .create-folder {
   display         : flex;
   justify-content : center;
-
 }
 
 .create-url {
-  display: flex;
-  justify-content: center;
+  display         : flex;
+  justify-content : center;
 }
+
+input {
+  box-sizing : border-box;
+  margin     : 0 0 15px;
+  padding    : 15px;
+  border     : 0;
+  background : #f2f2f2;
+  outline    : 0;
+  font-size  : 14px;
+}
+
+button {
+  margin-top     : 4px;
+  padding        : 15px;
+  color          : white;
+  border         : 0;
+  border         : 1px solid white;
+  background     : #22313F;
+  text-transform : uppercase;
+  font-size      : 14px;
+  cursor         : pointer;
+}
+
+button:active,
+button:focus,
+button:hover {
+  color      : #22313F;
+  border     : 1px solid #22313F;
+  background : white;
+}
+
+
+.folders {
+  width: 50%;
+}
+
 
 .fav-folders {
   border : 1px solid black;
 }
+
