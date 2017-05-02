@@ -23,19 +23,18 @@ app.get('/', (request, response) => {
 app.get('/api/folders', (request, response) => {
   const { folders } = app.locals
 
-  response.json({folders})
+  response.json({ folders })
 })
 
 app.post('/api/folders', (request, response) => {
   const { title } = request.body
-  const id = md5(title)
-
+  const id = app.locals.folders.length + 1
 
   app.locals.folders.push({id, title})
   response.status(201).json({id, title})
 })
 
-const server = app.listen(app.get('port'), function() {
+const server = app.listen(app.get('port'), () => {
   const port = server.address().port;
   console.log('Magic happens on port ' + port);
 });
