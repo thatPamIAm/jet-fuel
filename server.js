@@ -34,6 +34,13 @@ app.post('/api/folders', (request, response) => {
   response.status(201).json({id, title})
 })
 
+app.get('/api/urls', (request, response) => {
+  const { urls } = app.locals
+
+  response.json({ urls })
+})
+
+
 const server = app.listen(app.get('port'), () => {
   const port = server.address().port;
   console.log('Magic happens on port ' + port);
