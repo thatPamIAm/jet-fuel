@@ -1,6 +1,3 @@
-
-
-
 $('.create-folder-btn').on('click', (e) => {
   e.preventDefault()
   let inputVal = $('.create-folder-input').val()
