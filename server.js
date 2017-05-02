@@ -40,6 +40,13 @@ app.get('/api/urls', (request, response) => {
   response.json({ urls })
 })
 
+app.post('/api/urls', (request, response) => {
+  const { name, url } = request.body
+
+  app.locals.urls.push({ name, url })
+  response.status(201).json({ name, url })
+})
+
 
 const server = app.listen(app.get('port'), () => {
   const port = server.address().port;
