@@ -29,16 +29,6 @@ html {
   color : #004264;
 }
 
-/*.create-folder {
-  display         : flex;
-  justify-content : center;
-}*/
-
-/*.create-url {
-  display         : flex;
-  justify-content : center;
-}*/
-
 input {
   box-sizing : border-box;
   margin     : 0 0 10px;
