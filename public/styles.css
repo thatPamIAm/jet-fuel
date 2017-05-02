@@ -96,10 +96,6 @@ button:hover {
   background-color: #f2f2f2;
 }
 
-.fav-folders {
-  border : 1px solid black;
-}
-
 /*Media Queries*/
 @media (max-width: 500px) {
   form {
