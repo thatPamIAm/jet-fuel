@@ -6,19 +6,19 @@ exports.seed = function(knex, Promise) {
   .then(() => {
     return Promise.all([
       knex('folders').insert({
-        title: "pam <3's nickelback"
+        folder_name: "pam <3's nickelback"
       }, 'id')
       .then(folder => {
         console.log('folder', folder)
 
         return knex('urls').insert([
           {
-            name: 'cool website',
+            url_name: 'cool website',
             long_url: 'http://coolwebsite.com',
             folder_id: folder[0]
           },
           {
-            name: 'another one',
+            url_name: 'another one',
             long_url: 'http://nickelbackforlife.com',
             folder_id: folder[0]
           }
