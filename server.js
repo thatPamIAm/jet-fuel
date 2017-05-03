@@ -4,6 +4,10 @@ const path       = require('path')
 const bodyParser = require('body-parser')
 const md5        = require('md5')
 
+const environment = process.env.NODE_ENV || 'development';
+const configuration = require('./knexfile')[environment];
+const database = require('knex')(configuration);
+
 
 app.use(express.static('public'))
 
@@ -12,41 +16,56 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.locals.folders = []
-app.locals.urls    = []
-
 
 app.get('/', (request, response) => {
   response.send('index.html')
 })
 
-app.get('/api/folders', (request, response) => {
-  const { folders } = app.locals
-
-  response.json({ folders })
+app.get('/api/v1/folders', (request, response) => {
+  database('folders').select()
+    .then(folders => {
+      response.status(200).json(folders)
+    })
+    .catch(error => {
+      console.error('error: ', error)
+    });
 })
 
-app.post('/api/folders', (request, response) => {
-  const { title } = request.body
-  const id = app.locals.folders.length + 1
+app.post('/api/v1/folders', (request, response) => {
+  const title = request.body
 
-  app.locals.folders.push({id, title})
-  response.status(201).json({id, title})
+  database('folders').insert(title, 'id')
+    .then(folder => {
+      response.status(201).json({ id: folder[0] })
+    })
+    .catch(error => {
+      console.error('error: ', error)
+    })
 })
 
-app.get('/api/urls', (request, response) => {
-  const { urls } = app.locals
-
-  response.json({ urls })
+app.get('/api/v1/urls', (request, response) => {
+  database('urls').select()
+    .then(urls => {
+      response.status(200).json(urls);
+    })
+    .catch(error => {
+      console.error('error: ', error)
+    })
 })
 
-app.post('/api/urls', (request, response) => {
-  const { name, url } = request.body
+app.post('/api/v1/urls', (request, response) => {
+  const name  = request.body
+  const url  = request.body
+  // const folderID = request.body
 
-  app.locals.urls.push({ name, url })
-  response.status(201).json({ name, url })
+  database('urls').insert( url, 'id')
+    .then( url => {
+      response.status(201).json({ id: url[0] })
+    })
+    .catch(error => {
+      console.error('error: ', error)
+    })
 })
-
 
 const server = app.listen(app.get('port'), () => {
   const port = server.address().port;
