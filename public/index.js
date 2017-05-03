@@ -1,9 +1,10 @@
 $('document').ready(
-  fetch('/api/folders')
+  fetch('/api/v1/folders')
   .then(response => response.json())
   .then(json => {
-    json.folders.map((folders) => {
-      appendFolder(folders.title)
+    json.map((folder) => {
+      appendFolder(folder.title)
+      console.log(folder);
     })
   })
 )
@@ -16,7 +17,7 @@ $('.create-folder-btn').on('click', (e) => {
 })
 
 const postFolder = (input) => {
-  fetch('/api/folders', {
+  fetch('/api/v1/folders', {
     method:'POST',
     headers:{'Content-Type' : 'application/json'},
     'body':JSON.stringify({
@@ -35,10 +36,7 @@ const appendFolder = (input) => {
 }
 
 
-
-
 // URL STUFF
-
 
 $('.create-url-btn').on('click', (e) => {
   e.preventDefault()
@@ -55,14 +53,14 @@ $('.create-url-btn').on('click', (e) => {
 })
 
 function postURL(name, url) {
-  fetch('/api/urls', {
+  fetch('/api/v1/urls', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       'name': name,
-      'url': url
+      'long_url': url
     })
   })
   .then(response => response.json())
