@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const md5        = require('md5')
 const favicon    = require('serve-favicon')
 
-const environment   = 'development'
+const environment   = process.env.NODE_ENV || 'development'
 const configuration = require('./knexfile')[environment]
 const database      = require('knex')(configuration)
 
@@ -97,6 +97,7 @@ const server = app.listen(app.get('port'), () => {
 
 
 
+module.exports = app
 
 
 
