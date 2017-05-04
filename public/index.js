@@ -105,6 +105,7 @@ const fetchURLS = (id) => {
 }
 
 const appendURL = (object) => {
+  console.log(object)
   $('.urls').append(`
     <div class='url-container'>
       <p>Name: ${object.url_name}</p>
@@ -124,9 +125,8 @@ const clearUrlSection = () => {
 
 $('.folders').on('click', '.folder-btn', (e) => {
   e.preventDefault()
-  activeID = e.target.id
-
   clearUrlSection()
+  activeID = e.target.id
 
   let thisButton = e.target
   $(thisButton).addClass('active').siblings().removeClass('active')
