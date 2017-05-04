@@ -16,20 +16,19 @@ const clearInput = (input) => {
   $(`${input}`).val('')
 }
 
-const toggleFolderButton = (e) => {
+const enableFolderBTN = (e) => {
   let b = $('.create-folder-btn')
   e.target.value ? b.prop('disabled', false) : b.prop('disabled', true)
 }
 
 $('.create-folder-input').on('keyup', (e) => {
-  toggleFolderButton(e)
+  enableFolderBTN(e)
 })
 
 $('.create-folder-btn').on('click', (e) => {
   e.preventDefault()
   let input = $('.create-folder-input').val()
   postFolder(input)
-  appendFolder(input)
   clearInput('.create-folder-input')
 })
 
@@ -42,8 +41,11 @@ const postFolder = (input) => {
     })
   })
   .then(response => response.json())
-  .then(urls => {
-    console.log(urls);
+  .then(folders => {
+    let found = folders.find((folder) => {
+      return folder.folder_name === input
+    })
+    appendFolder(found.folder_name, found.id)
   })
 }
 
