@@ -9,7 +9,7 @@ const favicon    = require('serve-favicon')
 const environment   = process.env.NODE_ENV || 'development'
 const configuration = require('./knexfile')[environment]
 const database      = require('knex')(configuration)
-
+const moment = require('moment')
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(express.static(path.join(__dirname, 'public')))
@@ -62,6 +62,7 @@ app.post('/api/v1/folders', (request, response) => {
 app.get('/api/v1/urls', (request, response) => {
   database('urls').select()
     .then(urls => {
+      // map through URLS , replace created_at with moment stuff
       response.status(200).json(urls)
     })
     .catch(e => console.log(e))

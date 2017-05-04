@@ -1,6 +1,5 @@
 let activeID
 
-
 const fetchFolders = () => {
   fetch('/api/v1/folders')
   .then(response => response.json())
@@ -126,11 +125,10 @@ const clearUrlSection = () => {
 $('.folders').on('click', '.folder-btn', (e) => {
   e.preventDefault()
   clearUrlSection()
+
   activeID = e.target.id
 
-  let thisButton = e.target
-  $(thisButton).addClass('active').siblings().removeClass('active')
-
+  $(e.target).addClass('active').siblings().removeClass('active')
   fetchURLS(activeID)
 })
 
