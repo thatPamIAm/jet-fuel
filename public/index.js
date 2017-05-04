@@ -106,7 +106,7 @@ const fetchURLS = (id) => {
 
 const appendURL = (object) => {
   $('.urls').append(`
-    <div>
+    <div class='url-container'>
       <p>Name: ${object.url_name}</p>
       <p>Visit Count:${object.visit_count}</p>
       <a>Long Url: ${object.long_url}</a>
