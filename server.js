@@ -64,7 +64,7 @@ app.post('/api/v1/folders', (request, response) => {
     database('folders').select()
     .then(folders => {
       console.log(folders);
-      response.status(200).json(folders)
+      response.status(201).json(folders)
     })
   })
 })
@@ -80,11 +80,11 @@ app.get('/api/v1/urls', (request, response) => {
 app.post('/api/v1/urls', (request, response) => {
   const url = request.body
 
-  database('urls').insert(url, 'id')
-    .then(id => {
-      console.log('id', id);
+  database('urls').insert(url ,[ "url_name","folder_id","long_url", "id"])
+    .then((urls) => {
+      console.log(urls)
+      response.status(201).json(urls[0])
     })
-    .catch(e => console.log(e))
 })
 
 

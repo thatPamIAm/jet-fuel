@@ -89,22 +89,18 @@ $('.create-url-btn').on('click', (e) => {
 
 
 // fix dis.
-const postURL = (name, url) => {
-  fetch('/api/v1/urls', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      'name': name,
-      'long_url': url
-    })
-  })
-  .then(response => response.json())
-  .then(json => console.log(json))
-  .catch(e => console.log(e))
-}
-
-
-
-
+// const postURL = (name, url) => {
+//   fetch('/api/v1/urls', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//       'url_name': name,
+//       'long_url': url
+//     })
+//   })
+//   .then(response => response.json())
+//   .then(json => console.log(json))
+//   .catch(e => console.log(e))
+// }
