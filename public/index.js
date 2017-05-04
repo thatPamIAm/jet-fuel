@@ -3,7 +3,8 @@ const fetchFolders = () => {
   .then(response => response.json())
   .then(json => {
     json.map((folder) => {
-      appendFolder(folder.folder_name)
+      const { folder_name, id } = folder
+      appendFolder(folder_name, id)
       console.log(folder);
     })
   })
@@ -46,9 +47,12 @@ const postFolder = (input) => {
   .catch(e => console.log(e))
 }
 
-const appendFolder = (input) => {
+const appendFolder = (name, id) => {
+
+    console.log(name, id);
   $('.folders').append(`
-      <p>${input} </p>
+      <button class='folder-btn' id="${id}">${name}</button>
+      <p>${name} </p>
   `)
 }
 

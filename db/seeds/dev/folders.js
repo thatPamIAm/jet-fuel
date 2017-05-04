@@ -1,4 +1,4 @@
-// knex seeds:run
+// knex seed:run
 
 exports.seed = function(knex, Promise) {
   return knex('urls').del()
