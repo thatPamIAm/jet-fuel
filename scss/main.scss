@@ -1,11 +1,33 @@
+$badass                : #bada55;
+$ultra-chic-periwinkle : #ccccff;
+$prussian-blue         : #004264;
+$lochmara              : #386FA4;
+$picton-blue           : #59A5D8;
+$light-sky-blue        : #84D2F6;
+$blizzard-blue         : #84D2F6;
+
 body {
   margin           : 0;
-  background-color : #ccccff;
+  background-color : $ultra-chic-periwinkle;
 }
 
 .cool-dude {
   color : red;
 }
+
+// /*SCHEMIN!
+
+// #004264
+
+// #386FA4
+
+// #59A5D8
+
+// #84D2F6
+
+// #91E5F6
+
+// */
 
 body,
 html {
@@ -42,7 +64,7 @@ input {
 }
 
 .create-folder-btn:disabled {
-  color            : #004264;
+  color            : $prussian-blue;
   border           : none;
   background-color : white;
   cursor           : not-allowed;
