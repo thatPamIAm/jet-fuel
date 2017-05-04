@@ -1,0 +1,153 @@
+// NPM RUN BUILD-CSS 
+// NPM RUN WATCH-CSS
+
+
+$badass                : #bada55;
+$ultra-chic-periwinkle : #ccccff;
+$prussian-blue         : #004264;
+$lochmara              : #386FA4;
+$picton-blue           : #59A5D8;
+$light-sky-blue        : #84D2F6;
+$blizzard-blue         : #84D2F6;
+
+body {
+  margin           : 0;
+  background-color : $ultra-chic-periwinkle;
+}
+
+.cool-dude {
+  color : red;
+}
+
+// /*SCHEMIN!
+
+// #004264
+
+// #386FA4
+
+// #59A5D8
+
+// #84D2F6
+
+// #91E5F6
+
+// */
+
+body,
+html {
+  height : 100%;
+}
+
+.nav {
+  display        : flex;
+  align-items    : center;
+  flex-direction : column;
+}
+
+.jet-fuel {
+  margin-bottom : 30px;
+  color         : #84D2F6;
+  text-align    : center;
+  font-family   : 'Open sans';
+  font-size     : 5em;
+  font-weight   : 500;
+}
+
+.fuel-span {
+  color : #004264;
+}
+
+input {
+  box-sizing : border-box;
+  margin     : 0 0 10px;
+  padding    : 10px;
+  border     : 1px solid #c2c2c2;
+  background : #f2f2f2;
+  outline    : 0;
+  font-size  : 14px;
+}
+
+.create-folder-btn:disabled {
+  color            : $prussian-blue;
+  border           : none;
+  background-color : white;
+  cursor           : not-allowed;
+}
+
+button {
+  margin-top     : 4px;
+  padding        : 10px;
+  color          : white;
+  border         : 1px solid white;
+  background     : #22313F;
+  text-transform : uppercase;
+  font-size      : 14px;
+  cursor         : pointer;
+}
+
+button:hover {
+  color      : #22313F;
+  border     : 1px solid #22313F;
+  background : white;
+}
+
+.content-container {
+  display : flex;
+}
+
+.folders {
+  margin           : 10px;
+  padding          : 5px;
+  color            : #84D2F6;
+  border           : 1px solid #c2c2c2;
+  background-color : #f2f2f2;
+  flex             : 1;
+}
+
+.folders-header {
+  width         : 40%;
+  margin        : 10px;
+  border-bottom : 1px solid #004264;
+  font-size     : 2em;
+}
+
+.folders-name {
+  margin : 10px;
+  color  : #22313F;
+}
+
+.link-display {
+  margin : 5px;
+  margin : 15px 0px 10px 0px;
+  color  : #004264;
+}
+
+.urls {
+  margin           : 10px;
+  padding          : 5px 0px 5px 10px;
+  border           : 1px solid #c2c2c2;
+  background-color : #f2f2f2;
+  flex             : 1;
+}
+
+/* Media Queries */
+
+@media (max-width: 500px) {
+  form {
+    display        : flex;
+    margin-top     : 15px;
+    flex-direction : column;
+  }
+
+  .content-container {
+    align-items    : center;
+    flex-direction : column;
+  }
+
+  .create-folder,
+  .create-url,
+  .folders,
+  .urls {
+    width : 280px;
+  }
+}
