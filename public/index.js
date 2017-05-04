@@ -18,7 +18,7 @@ const clearInput = (input) => {
 
 const toggleFolderButton = (e) => {
   let b = $('.create-folder-btn')
-  e.target.value ? b.attr('disabled', false) : b.attr('disabled', true)
+  e.target.value ? b.prop('disabled', false) : b.prop('disabled', true)
 }
 
 $('.create-folder-input').on('keyup', (e) => {
@@ -38,7 +38,7 @@ const postFolder = (input) => {
     method:'POST',
     headers:{'Content-Type' : 'application/json'},
     'body':JSON.stringify({
-      'title': input
+      'folder_name': input
     })
   })
   .then(response => response.json())
@@ -84,6 +84,8 @@ $('.create-url-btn').on('click', (e) => {
   }
 })
 
+
+// fix dis.
 const postURL = (name, url) => {
   fetch('/api/v1/urls', {
     method: 'POST',
