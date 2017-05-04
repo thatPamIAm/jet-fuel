@@ -20,15 +20,15 @@ describe('server side testing', () => {
       database.seed.run()
     })
     done()
+    // one migration : latest
+    // seed
   })
 
- // one migration : latest
- // seed
   afterEach((done) => {
     database.seed.run()
     done()
+    //  seed
   })
-  //  seed
 
   describe('Client Routes', () => {
     it('should return HTML', (done) => {
