@@ -77,11 +77,14 @@ const addHTTP = (url) => {
   return url;
 }
 
+
 $('.create-url-btn').on('click', (e) => {
+
   e.preventDefault()
 
   let name = $('.site-name-input').val()
   let url  = $('.url-input').val()
+
   if(validateUrl(url) == false) {
     console.log('false');
   }
@@ -91,9 +94,38 @@ $('.create-url-btn').on('click', (e) => {
   }
 })
 
+const fetchURLS = (id) => {
+  fetch(`/api/v1/folders/${id}/urls`)
+  .then(response => response.json())
+  .then(urls => {
+    urls.map((url) => {
+      appendURL(url)
+    })
+  })
+}
+
+const appendURL = (object) => {
+  $('.urls').append(`
+    <div class='url-container'>
+      <p>Name: ${object.url_name}</p>
+      <p>Visit Count:${object.visit_count}</p>
+      <a>Long Url: ${object.long_url}</a>
+      <a>short Url: ${document.URL + object.id}</a>
+    </div>
+  `)
+}
+
+
 $('.folders').on('click', '.folder-btn', (e) => {
   e.preventDefault()
   activeID = e.target.id
+
+  $('.urls').empty()
+
+  let thisButton = e.target
+  $(thisButton).addClass('active').siblings().removeClass('active')
+
+  fetchURLS(activeID)
 })
 
 
@@ -113,12 +145,3 @@ const postURL = (name, url) => {
   .catch(e => console.log(e))
 }
 
-const appendURL = (name, id) => {
-  $('.urls').append(`
-    <div>
-    <p>${name.url_name}</p>
-    <a>${name.long_url}</link>
-  </div>
-`)
-
-}
