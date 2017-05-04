@@ -44,15 +44,28 @@ app.get('/api/v1/folders/:id/urls', (request, response) => {
     })
     .catch(e => console.log(e))
 })
+//
+// app.post('/api/v1/folders', (request, response) => {
+//   const folder = request.body
+//
+//   database('folders').insert(folder, 'id')
+//     .then(id => {
+//       console.log('id', id)
+//       response.status(201).json({ id: folder[0] })
+//     })
+// })
 
 app.post('/api/v1/folders', (request, response) => {
-  const folder = request.body
+  const folder_name = request.body
 
-  database('folders').insert(folder, 'id')
-    .then(id => {
-      console.log('id', id)
-      response.status(201).json({ id: folder[0] })
+  database('folders').insert(folder_name, 'id')
+  .then(() => {
+    database('folders').select()
+    .then(folders => {
+      console.log(folders);
+      response.status(200).json(folders)
     })
+  })
 })
 
 app.get('/api/v1/urls', (request, response) => {

@@ -5,7 +5,6 @@ const fetchFolders = () => {
     json.map((folder) => {
       const { folder_name, id } = folder
       appendFolder(folder_name, id)
-      console.log(folder);
     })
   })
   .catch(e => console.log(e))
@@ -36,23 +35,21 @@ $('.create-folder-btn').on('click', (e) => {
 
 const postFolder = (input) => {
   fetch('/api/v1/folders', {
-    method:'POST',
-    headers:{'Content-Type' : 'application/json'},
-    'body':JSON.stringify({
-      'folder_name': input
+    method: 'POST',
+    headers: { 'Content-Type' : 'application/json' },
+    'body': JSON.stringify({
+      folder_name: input
     })
   })
   .then(response => response.json())
-  .then(json => console.log(json))
-  .catch(e => console.log(e))
+  .then(urls => {
+    console.log(urls);
+  })
 }
 
 const appendFolder = (name, id) => {
-
-    console.log(name, id);
   $('.folders').append(`
       <button class='folder-btn' id="${id}">${name}</button>
-      <p>${name} </p>
   `)
 }
 
