@@ -3,16 +3,17 @@ const app        = express()
 const path       = require('path')
 const bodyParser = require('body-parser')
 const md5        = require('md5')
+const favicon    = require('serve-favicon')
 
 const environment   = 'development'
 const configuration = require('./knexfile')[environment]
 const database      = require('knex')(configuration)
 
 
-// app.use(express.static('public'))
-
-app.set('port', process.env.PORT || 3000)
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(express.static(path.join(__dirname, 'public')))
+app.set('port', process.env.PORT || 3000)
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -43,15 +44,28 @@ app.get('/api/v1/folders/:id/urls', (request, response) => {
     })
     .catch(e => console.log(e))
 })
+//
+// app.post('/api/v1/folders', (request, response) => {
+//   const folder = request.body
+//
+//   database('folders').insert(folder, 'id')
+//     .then(id => {
+//       console.log('id', id)
+//       response.status(201).json({ id: folder[0] })
+//     })
+// })
 
 app.post('/api/v1/folders', (request, response) => {
-  const folder = request.body
+  const folder_name = request.body
 
-  database('folders').insert(folder, 'id')
-    .then(id => {
-      console.log('id', id)
-      response.status(201).json({ id: folder[0] })
+  database('folders').insert(folder_name, 'id')
+  .then(() => {
+    database('folders').select()
+    .then(folders => {
+      console.log(folders);
+      response.status(200).json(folders)
     })
+  })
 })
 
 app.get('/api/v1/urls', (request, response) => {
