@@ -34,11 +34,16 @@ input {
   outline: 0;
   font-size: 14px; }
 
-.create-folder-btn:disabled {
+.create-folder-btn:disabled,
+.create-url-btn:disabled {
   color: #004264;
   border: none;
   background-color: white;
   cursor: not-allowed; }
+
+.active {
+  background-color: white;
+  color: black; }
 
 button {
   margin-top: 4px;

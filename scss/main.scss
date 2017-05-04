@@ -40,8 +40,14 @@ input {
   @include inputs;
 }
 
-.create-folder-btn:disabled {
+.create-folder-btn:disabled,
+.create-url-btn:disabled {
   @include disabled-button;
+}
+
+.active {
+  background-color: white;
+  color: black;
 }
 
 button {
