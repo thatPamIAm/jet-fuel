@@ -6,19 +6,28 @@ const chaiHttp = require('chai-http')
 const server   = require('../server')
 
 
-const configuration = require('./knexfile')['test']
+const configuration = require('../knexfile')['test']
 const database      = require('knex')(configuration)
 
 
 chai.use(chaiHttp)
 
 
-desribe('server side testing', () => {
-  before()
+describe('server side testing', () => {
+  before((done) => {
+    database.migrate.latest()
+    .then(() => {
+      database.seed.run()
+    })
+    done()
+  })
 
  // one migration : latest
  // seed
-  afterEach()
+  afterEach((done) => {
+    database.seed.run()
+    done()
+  })
   //  seed
 
   describe('Client Routes', () => {
