@@ -109,18 +109,23 @@ const appendURL = (object) => {
     <div class='url-container'>
       <p>Name: ${object.url_name}</p>
       <p>Visit Count:${object.visit_count}</p>
-      <a>Long Url: ${object.long_url}</a>
-      <a>short Url: ${document.URL + object.id}</a>
+      <p>Complete URL</p>
+      <a>${object.long_url}</a>
+      <p>Short Url</p>
+      <a class='each-url' href="/${object.id}">${document.URL + object.id}</a>
     </div>
   `)
 }
 
+const clearUrlSection = () => {
+  $('.urls').empty()
+}
 
 $('.folders').on('click', '.folder-btn', (e) => {
   e.preventDefault()
   activeID = e.target.id
 
-  $('.urls').empty()
+  clearUrlSection()
 
   let thisButton = e.target
   $(thisButton).addClass('active').siblings().removeClass('active')

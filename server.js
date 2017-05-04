@@ -4,6 +4,7 @@ const path       = require('path')
 const bodyParser = require('body-parser')
 const md5        = require('md5')
 const favicon    = require('serve-favicon')
+// const redirect   = express.Router()
 
 const environment   = process.env.NODE_ENV || 'development'
 const configuration = require('./knexfile')[environment]
@@ -73,6 +74,19 @@ app.post('/api/v1/urls', (request, response) => {
     .then((urls) => {
       response.status(201).json(urls[0])
     })
+})
+
+app.get('/:id', (request, response) => {
+  const id = request.params.id
+  database('urls').where('id', id).increment('visit_count', 1)
+  .then(() => {
+    return database('urls').where('id', id).select('long_url')
+  })
+  .then(match => {
+    const {long_url} = match[0]
+    console.log(long_url);
+    response.redirect(`${long_url}`)
+  })
 })
 
 
