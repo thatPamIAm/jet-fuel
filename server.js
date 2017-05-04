@@ -80,9 +80,8 @@ app.get('/api/v1/urls', (request, response) => {
 app.post('/api/v1/urls', (request, response) => {
   const url = request.body
 
-  database('urls').insert(url ,[ "url_name","folder_id","long_url", "id"])
+  database('urls').insert(url ,[ "url_name","folder_id","long_url", "id", "visit_count"])
     .then((urls) => {
-      console.log(urls)
       response.status(201).json(urls[0])
     })
 })
