@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const md5        = require('md5')
 const favicon    = require('serve-favicon')
 
-const environment   = 'development'
+const environment   = process.env.NODE_ENV || 'development'
 const configuration = require('./knexfile')[environment]
 const database      = require('knex')(configuration)
 
@@ -45,17 +45,6 @@ app.get('/api/v1/folders/:id/urls', (request, response) => {
     .catch(e => console.log(e))
 })
 
-//
-// app.post('/api/v1/folders', (request, response) => {
-//   const folder = request.body
-//
-//   database('folders').insert(folder, 'id')
-//     .then(id => {
-//       console.log('id', id)
-//       response.status(201).json({ id: folder[0] })
-//     })
-// })
-
 app.post('/api/v1/folders', (request, response) => {
   const folder_name = request.body
 
@@ -91,3 +80,5 @@ const server = app.listen(app.get('port'), () => {
   const port = server.address().port;
   console.log('Magic happens on port ' + port);
 });
+
+module.exports = app
