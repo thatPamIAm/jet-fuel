@@ -77,20 +77,20 @@ const addHTTP = (url) => {
   return url;
 }
 
-
 $('.create-url-btn').on('click', (e) => {
-
   e.preventDefault()
 
   let name = $('.site-name-input').val()
   let url  = $('.url-input').val()
 
   if(validateUrl(url) == false) {
-    console.log('false');
+    $('.urls').append('<p>ERROR. Input a valid URL.</p>')
   }
   else {
     let result = addHTTP(url)
     postURL(name, result)
+    clearInput('.site-name-input')
+    clearInput('.url-input')
   }
 })
 
