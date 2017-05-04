@@ -45,17 +45,6 @@ app.get('/api/v1/folders/:id/urls', (request, response) => {
     .catch(e => console.log(e))
 })
 
-//
-// app.post('/api/v1/folders', (request, response) => {
-//   const folder = request.body
-//
-//   database('folders').insert(folder, 'id')
-//     .then(id => {
-//       console.log('id', id)
-//       response.status(201).json({ id: folder[0] })
-//     })
-// })
-
 app.post('/api/v1/folders', (request, response) => {
   const folder_name = request.body
 
@@ -64,7 +53,7 @@ app.post('/api/v1/folders', (request, response) => {
     database('folders').select()
     .then(folders => {
       console.log(folders);
-      response.status(200).json(folders)
+      response.status(201).json(folders)
     })
   })
 })
@@ -80,11 +69,10 @@ app.get('/api/v1/urls', (request, response) => {
 app.post('/api/v1/urls', (request, response) => {
   const url = request.body
 
-  database('urls').insert(url, 'id')
-    .then(id => {
-      console.log('id', id);
+  database('urls').insert(url ,[ "url_name","folder_id","long_url", "id", "visit_count"])
+    .then((urls) => {
+      response.status(201).json(urls[0])
     })
-    .catch(e => console.log(e))
 })
 
 
@@ -93,17 +81,4 @@ const server = app.listen(app.get('port'), () => {
   console.log('Magic happens on port ' + port);
 });
 
-
-
-
-
 module.exports = app
-
-
-
-
-
-
-
-
-

@@ -1,3 +1,6 @@
+let activeID
+
+
 const fetchFolders = () => {
   fetch('/api/v1/folders')
   .then(response => response.json())
@@ -42,6 +45,7 @@ const postFolder = (input) => {
   })
   .then(response => response.json())
   .then(folders => {
+    console.log(folders)
     let found = folders.find((folder) => {
       return folder.folder_name === input
     })
@@ -87,24 +91,34 @@ $('.create-url-btn').on('click', (e) => {
   }
 })
 
+$('.folders').on('click', '.folder-btn', (e) => {
+  e.preventDefault()
+  activeID = e.target.id
+})
 
-// fix dis.
+
 const postURL = (name, url) => {
   fetch('/api/v1/urls', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      'name': name,
-      'long_url': url
+    headers: { 'Content-Type': 'application/json'},
+    'body': JSON.stringify({
+      url_name: name,
+      long_url: url,
+      visit_count: 0,
+      folder_id: activeID
     })
   })
   .then(response => response.json())
-  .then(json => console.log(json))
+  .then(url => appendURL(url))
   .catch(e => console.log(e))
 }
 
+const appendURL = (name, id) => {
+  $('.urls').append(`
+    <div>
+    <p>${name.url_name}</p>
+    <a>${name.long_url}</link>
+  </div>
+`)
 
-
-
+}
