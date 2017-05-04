@@ -71,13 +71,16 @@ button:hover {
   border           : 1px solid #c2c2c2;
   background-color : #f2f2f2;
   flex             : 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .folders-header {
   width         : 40%;
-  margin        : 10px;
   border-bottom : 1px solid #004264;
   font-size     : 2em;
+  text-align: center;
+  align-self: center;
 }
 
 .folders-name {

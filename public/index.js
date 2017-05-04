@@ -110,9 +110,10 @@ const appendURL = (object) => {
       <p>Name: ${object.url_name}</p>
       <p>Visit Count:${object.visit_count}</p>
       <p>Complete URL</p>
-      <a>${object.long_url}</a>
+      <a class='each-url' href="/${object.id}">${object.long_url}</a>
       <p>Short Url</p>
       <a class='each-url' href="/${object.id}">${document.URL + object.id}</a>
+      <p>Created At: ${object.created_at}</p>
     </div>
   `)
 }
