@@ -15,12 +15,14 @@ exports.seed = function(knex, Promise) {
           {
             url_name: 'cool website',
             long_url: 'http://coolwebsite.com',
-            folder_id: folder[0]
+            folder_id: folder[0],
+            visit_count: 2
           },
           {
             url_name: 'another one',
             long_url: 'http://nickelbackforlife.com',
-            folder_id: folder[0]
+            folder_id: folder[0],
+            visit_count: 1
           }
         ])
       })
