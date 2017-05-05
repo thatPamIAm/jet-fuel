@@ -109,8 +109,8 @@ $('.create-url-btn').on('click', (e) => {
   let url  = $('.url-input').val()
 
   if(validateUrl(url) == false || !activeID) {
-    validateUrl(url) ? $('.urls').append('<p>ERROR. Select a folder.</p>') :
-    $('.urls').append('<p>ERROR. input a valid URL!.</p>')
+    validateUrl(url) ? $('.urls').prepend('<p>ERROR. Select a folder.</p>') :
+    $('.urls').prepend('<p>ERROR. input a valid URL!.</p>')
   }
   else {
     let result = addHTTP(url)
@@ -199,6 +199,7 @@ const sortByVisitsAsc = (urls) => {
 const clearUrlSection = () => {
   $('.urls').empty()
 }
+
 const enableSaveButton = () => {
   $('.create-url-btn').prop('disabled', false);
 }
