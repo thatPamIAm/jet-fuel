@@ -169,10 +169,8 @@ const sortByVisitsAsc = (urls) => {
 
 const sortByDate = (urls) => {
   // FIX DIS
-  let sorted = urls.sort((a, b) => {
-    return a.created_at - b.created_at
-  })
-  console.log(sorted);
+  // maybe restructure moment.js data ? 
+  console.log(urls);
 }
 
 $('.sort-by-date').on('click', (e) => {
