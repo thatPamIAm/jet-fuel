@@ -71,6 +71,16 @@ describe('server side testing', () => {
           done()
         })
       })
+
+      it('should return a 404 error for non-existent routes', (done) => {
+        chai.request(server)
+        .get('/api/v1/sadfolders')
+        .end((err, response) => {
+          response.should.have.status(404)
+
+          done()
+        })
+      })
     })
 
     describe('GET /api/v1/folders/:id', (request, response) => {
@@ -89,6 +99,17 @@ describe('server side testing', () => {
           done()
         })
       })
+
+      it('should return a 404 error for non-existent routes', (done) => {
+        chai.request(server)
+        .get('/api/v1/helpme/1')
+        .end((err, response) => {
+          response.should.have.status(404)
+
+          done()
+
+        })
+      })
     })
 
     describe('GET /api/v1/folders/:id/urls', (request, response) => {
@@ -104,6 +125,16 @@ describe('server side testing', () => {
           response.body[0].url_name.should.equal(' testing wbesites')
 
           done()
+        })
+      })
+
+      it('should return a 404 error for non-existent routes', (done) => {
+        chai.request(server)
+        .get('/api/v1/folders/a/urlhell')
+        .end((err, response) => {
+          response.should.have.status(404)
+          done()
+
         })
       })
     })
