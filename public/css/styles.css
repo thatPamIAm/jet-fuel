@@ -104,6 +104,7 @@ button:hover {
 
 .urls {
   margin: 10px;
+  font-family: 'Open sans';
   padding: 5px 0px 5px 10px;
   border: 1px solid #c2c2c2;
   background-color: #f2f2f2;
