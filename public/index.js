@@ -1,6 +1,5 @@
 let activeID
 
-
 const fetchFolders = () => {
   fetch('/api/v1/folders')
   .then(response => response.json())
@@ -77,20 +76,20 @@ const addHTTP = (url) => {
   return url;
 }
 
-
 $('.create-url-btn').on('click', (e) => {
-
   e.preventDefault()
 
   let name = $('.site-name-input').val()
   let url  = $('.url-input').val()
 
   if(validateUrl(url) == false) {
-    console.log('false');
+    $('.urls').append('<p>ERROR. Input a valid URL.</p>')
   }
   else {
     let result = addHTTP(url)
     postURL(name, result)
+    clearInput('.site-name-input')
+    clearInput('.url-input')
   }
 })
 
@@ -105,26 +104,31 @@ const fetchURLS = (id) => {
 }
 
 const appendURL = (object) => {
+  console.log(object)
   $('.urls').append(`
     <div class='url-container'>
       <p>Name: ${object.url_name}</p>
       <p>Visit Count:${object.visit_count}</p>
-      <a>Long Url: ${object.long_url}</a>
-      <a>short Url: ${document.URL + object.id}</a>
+      <p>Complete URL</p>
+      <a class='each-url' href="/${object.id}">${object.long_url}</a>
+      <p>Short Url</p>
+      <a class='each-url' href="/${object.id}">${document.URL + object.id}</a>
+      <p>Created At: ${object.created_at}</p>
     </div>
   `)
 }
 
+const clearUrlSection = () => {
+  $('.urls').empty()
+}
 
 $('.folders').on('click', '.folder-btn', (e) => {
   e.preventDefault()
+  clearUrlSection()
+
   activeID = e.target.id
 
-  $('.urls').empty()
-
-  let thisButton = e.target
-  $(thisButton).addClass('active').siblings().removeClass('active')
-
+  $(e.target).addClass('active').siblings().removeClass('active')
   fetchURLS(activeID)
 })
 
