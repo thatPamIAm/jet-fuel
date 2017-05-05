@@ -198,15 +198,18 @@ describe('server side testing', () => {
       })
     })
 
-    // describe('GET /:id REDIRECT', () => {
-    //   it.only('should redirect given the shorturl id', (done) => {
-    //     chai.request(server)
-    //     .get('/1')
-    //     .end((err, res) => {
-    //       res.status.should.be(200)
-    //       done()
-    //     })
-    //   }).timeout(3333333)
-    // })
+    describe('GET redirect /:id', () => {
+      it('should redirect to longURL', (done) => {
+        chai.request(server)
+        .get('/1')
+        .send({ 'id': 1 })
+        .end(function(err, res) {
+          res.should.have.status(200)
+          res.should.redirect
+          res.should.redirectTo('http://coolwebsite.com/')
+          done()
+        })
+      })
+    })
   })
 })
