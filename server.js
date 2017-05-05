@@ -62,6 +62,7 @@ app.post('/api/v1/folders', (request, response) => {
 app.get('/api/v1/urls', (request, response) => {
   database('urls').select()
     .then(urls => {
+      // let formatted = formatTime(urls)
       // map through URLS , replace created_at with moment stuff
       response.status(200).json(urls)
     })
@@ -104,8 +105,11 @@ const formatTime = (urls) => {
   urls.map(url => {
     const created_at = moment(url.created_at).calendar()
     const updated_at = moment(url.updated_at).calendar()
+
     console.log(Object.assign({}, url, { created_at, updated_at }));
-    return Object.assign({}, url, { created_at, updated_at })
+
+    let newObject = Object.assign({}, url, { created_at, updated_at })
+    return newObject
   })
 }
 
