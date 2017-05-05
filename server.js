@@ -10,6 +10,7 @@ const configuration = require('./knexfile')[environment]
 const database      = require('knex')(configuration)
 const moment        = require('moment')
 
+
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('port', process.env.PORT || 3000)
