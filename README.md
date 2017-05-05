@@ -52,7 +52,7 @@
 Writing this block of code represented a monumental paradigm shift in my thought process surrounding the functionality in the backend. Client side javascript, for me, seems inordinately complex. Actually shortening the urls, then redirecting to their respective longer URLs seemed to be the crux of this project. It was, however, not. Implementing the shortening and redirecting action helped solidify what it was that we were actually meant to be doing. It also made me less apprehensive when approaching certain problems in our server side code.
 
 #### Link to a specific block of your code on Github that you feel not great about
-[Code block that handles clicking sort by date btn](httpshttps://github.com/thatPamIAm/jet-fuel/blob/master/public/index.js#L134-L148github.com)
+[Code block that handles clicking sort by date btn](https://github.com/thatPamIAm/jet-fuel/blob/master/public/index.js#L134-L148github.com)
 
 [Corresponding sorting function](https://github.com/thatPamIAm/jet-fuel/blob/master/public/index.js#L178-L182)
 
