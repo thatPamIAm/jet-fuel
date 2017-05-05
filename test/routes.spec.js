@@ -58,6 +58,7 @@ describe('server side testing', () => {
         chai.request(server)
         .get('/api/v1/folders')
         .end((err, response) => {
+          console.log(response.body)
           response.should.have.status(200)
           response.should.be.json
           response.body.should.be.a('array')
@@ -73,7 +74,7 @@ describe('server side testing', () => {
     })
 
     describe('GET /api/v1/folders/:id', (request, response) => {
-      it.only('should return a single folder by an ID', (done) => {
+      it('should return a single folder by an ID', (done) => {
         chai.request(server)
         .get('/api/v1/folders/1')
         .end((err, response) => {
@@ -91,7 +92,7 @@ describe('server side testing', () => {
     })
 
     describe('GET /api/v1/folders/:id/urls', (request, response) => {
-      it.only('should return all the URLs from a single folder', (done) => {
+      it('should return all the URLs from a single folder', (done) => {
         chai.request(server)
         .get('/api/v1/folders/1/urls')
         .end((err, response) => {
