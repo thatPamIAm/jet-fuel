@@ -76,14 +76,30 @@ const addHTTP = (url) => {
   return url;
 }
 
+const enableSaveButton = () => {
+  $('.create-url-btn').prop('disabled', false);
+}
+
+const disableSaveButton = () => {
+  $('.create-url-btn').prop('disabled', true);
+}
+
+$('.site-name-input, .url-input').on('keyup', () => {
+  let siteInput = $('.site-name-input').val()
+  let urlInput  = $('.url-input').val()
+
+  siteInput && urlInput ? enableSaveButton() : disableSaveButton()
+});
+
 $('.create-url-btn').on('click', (e) => {
   e.preventDefault()
 
   let name = $('.site-name-input').val()
   let url  = $('.url-input').val()
 
-  if(validateUrl(url) == false) {
-    $('.urls').append('<p>ERROR. Input a valid URL.</p>')
+  if(validateUrl(url) == false || !activeID) {
+    validateUrl(url) ? $('.urls').append('<p>ERROR. Select a folder.</p>') :
+    $('.urls').append('<p>ERROR. input a valid URL!.</p>')
   }
   else {
     let result = addHTTP(url)
@@ -107,13 +123,16 @@ const appendURL = (object) => {
   console.log(object)
   $('.urls').append(`
     <div class='url-container'>
-      <p>Name: ${object.url_name}</p>
-      <p>Visit Count:${object.visit_count}</p>
-      <p>Complete URL</p>
+      <p class='url-detail'>NAME</p>
+      <p>${object.url_name}</p>
+      <p class='url-detail'>VISIT COUNT</p>
+      <p>${object.visit_count}</p>
+      <p class='url-detail'>COMPLETE URL</p>
       <a class='each-url' href="/${object.id}">${object.long_url}</a>
-      <p>Short Url</p>
+      <p class='url-detail'>SHORT URL</p>
       <a class='each-url' href="/${object.id}">${document.URL + object.id}</a>
-      <p>Created At: ${object.created_at}</p>
+      <p class='url-detail'>CREATED AT</p>
+      <p>${object.created_at}</p>
     </div>
   `)
 }
@@ -132,6 +151,69 @@ $('.folders').on('click', '.folder-btn', (e) => {
   fetchURLS(activeID)
 })
 
+const sortByVisitsDesc = (urls) => {
+  let sorted = urls.sort((a, b) => {
+    return a.visit_count - b.visit_count
+  })
+  console.log(sorted);
+  sorted.map(descending => appendURL(descending))
+}
+
+const sortByVisitsAsc = (urls) => {
+  let sorted = urls.sort((a, b) => {
+    return b.visit_count - a.visit_count
+  })
+  console.log(sorted);
+  sorted.map(ascending => appendURL(ascending))
+}
+
+const sortByDate = (urls) => {
+  // FIX DIS
+  // maybe restructure moment.js data ? 
+  console.log(urls);
+}
+
+$('.sort-by-date').on('click', (e) => {
+
+  if(!activeID){
+    $('.urls').append(`<p>select a folder to sort</p>`)
+  }
+  e.preventDefault()
+
+  fetch(`/api/v1/folders/${activeID}/urls`)
+  .then(response => response.json())
+  .then(json => {
+    clearUrlSection()
+    // sortByDate(json)
+    // sortOrder = "descending"
+  })
+})
+
+$('.sort-by-visits-desc').on('click', (e) => {
+  if(!activeID){
+    $('.urls').append(`<p>select a folder to sort</p>`)
+  }
+  e.preventDefault()
+  fetch(`/api/v1/folders/${activeID}/urls`)
+  .then(response => response.json())
+  .then(json => {
+    clearUrlSection()
+    sortByVisitsDesc(json)
+  })
+})
+
+$('.sort-by-visits-asc').on('click', (e) => {
+  if(!activeID){
+    $('.urls').append(`<p>select a folder to sort</p>`)
+  }
+  e.preventDefault()
+  fetch(`/api/v1/folders/${activeID}/urls`)
+  .then(response => response.json())
+  .then(json => {
+    clearUrlSection()
+    sortByVisitsAsc(json)
+  })
+})
 
 const postURL = (name, url) => {
   fetch('/api/v1/urls', {
