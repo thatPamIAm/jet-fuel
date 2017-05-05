@@ -14,10 +14,10 @@
 # Basics
 
 #### Link to the Github Repository for the Project
-[Your projects's repo URL](https://github.com/thatPamIAm/jet-fuel/)
+[jet-fuel](https://github.com/thatPamIAm/jet-fuel/)
 
 #### Link to the Deployed Application
-[Your project's production URL](aeronautical-fuel.herokuapp.com)
+[AUERONATICAL FUEL!](aeronautical-fuel.herokuapp.com)
 
 #### Link to Your Commits in the Github Repository for the Project
 
@@ -76,7 +76,7 @@ Testing on this codebase was problematic as well. The before and afterEach hooks
 
 #### Please feel free to ask any other questions or make any other statements below!
 
-Cool project. Quite enjoyable. Back end code isn't so scary after all. 
+Cool project. Quite enjoyable. Back end code isn't so scary after all.
 
 -----
 
