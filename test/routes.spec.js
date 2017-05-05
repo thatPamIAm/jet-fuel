@@ -58,7 +58,6 @@ describe('server side testing', () => {
         chai.request(server)
         .get('/api/v1/folders')
         .end((err, response) => {
-          console.log(response.body)
           response.should.have.status(200)
           response.should.be.json
           response.body.should.be.a('array')
@@ -88,7 +87,6 @@ describe('server side testing', () => {
         chai.request(server)
         .get('/api/v1/folders/1')
         .end((err, response) => {
-          console.log(err, response.body);
           response.should.have.status(200)
           response.should.be.json
           response.body.should.be.a('array')
@@ -213,7 +211,6 @@ describe('server side testing', () => {
         .send({ long_url: 'www.turing.io' })
         .end(function (err, res) {
           res.should.have.status(201)
-          console.log(res.body)
           const { body } = res
           res.should.be.json
           body.should.be.a('object')
