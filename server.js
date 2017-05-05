@@ -41,6 +41,7 @@ app.get('/api/v1/folders/:id', (request, response) => {
 app.get('/api/v1/folders/:id/urls', (request, response) => {
   database('urls').where('folder_id', request.params.id).select()
     .then(folders => {
+      // map through URLS , replace created_at with moment stuff
       response.status(200).json(folders)
     })
     .catch(e => console.log(e))
@@ -72,6 +73,7 @@ app.post('/api/v1/urls', (request, response) => {
   const url = request.body
 
   database('urls').insert(url ,[ "url_name","folder_id","long_url", "id", "visit_count"])
+  // map through URLS , replace created_at with moment stuff
     .then((urls) => {
       response.status(201).json(urls[0])
     })
