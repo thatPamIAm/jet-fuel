@@ -17,7 +17,7 @@
 [jet-fuel](https://github.com/thatPamIAm/jet-fuel/)
 
 #### Link to the Deployed Application
-[AUERONATICAL FUEL!](aeronautical-fuel.herokuapp.com)
+[AERONAUTICAL FUEL!](aeronautical-fuel.herokuapp.com)
 
 #### Link to Your Commits in the Github Repository for the Project
 
