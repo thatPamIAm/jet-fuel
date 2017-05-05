@@ -41,7 +41,6 @@ app.get('/api/v1/folders/:id', (request, response) => {
 app.get('/api/v1/folders/:id/urls', (request, response) => {
   database('urls').where('folder_id', request.params.id).select()
     .then(folders => {
-      // map through URLS , replace created_at with moment stuff
       response.status(200).json(folders)
     })
     .catch(e => console.log(e))
@@ -100,14 +99,16 @@ const server = app.listen(app.get('port'), () => {
 
 
 
-// HELPERS
-function formatTime(urls) {
+// HELPER THAT DOESNT WORK
+const formatTime = (urls) => {
   urls.map(url => {
     const created_at = moment(url.created_at).calendar()
     const updated_at = moment(url.updated_at).calendar()
+    console.log(Object.assign({}, url, { created_at, updated_at }));
     return Object.assign({}, url, { created_at, updated_at })
   })
 }
+
 
 module.exports = app
 
