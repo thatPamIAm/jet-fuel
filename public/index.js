@@ -155,16 +155,38 @@ const sortByVisits = (urls) => {
   let sorted = urls.sort((a, b) => {
     return a.visit_count - b.visit_count
   })
-  sorted.map(sort => appendURL(sort))
+  sorted.map(descending => appendURL(descending))
   console.log(sorted);
 }
+
+const sortByDate = (urls) => {
+  // FIX DIS 
+  let sorted = urls.sort((a, b) => {
+    return a.created_at - b.created_at
+  })
+
+  // sorted.map(descending => appendURL(descending))
+  console.log(sorted);
+}
+
+$('.sort-by-date').on('click', (e) => {
+  if(!activeID){
+    $('.urls').append(`<p>select a folder to sort</p>`)
+  }
+  e.preventDefault()
+  fetch(`/api/v1/folders/${activeID}/urls`)
+  .then(response => response.json())
+  .then(json => {
+    clearUrlSection()
+    sortByDate(json)
+  })
+})
 
 $('.sort-by-visits').on('click', (e) => {
   if(!activeID){
     $('.urls').append(`<p>select a folder to sort</p>`)
   }
   e.preventDefault()
-  console.log('sort');
   fetch(`/api/v1/folders/${activeID}/urls`)
   .then(response => response.json())
   .then(json => {
