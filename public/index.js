@@ -12,27 +12,7 @@ const fetchFolders = () => {
   .catch(e => console.log(e))
 }
 
-$('document').ready(fetchFolders())
-
-const clearInput = (input) => {
-  $(`${input}`).val('')
-}
-
-const enableFolderBTN = (e) => {
-  let b = $('.create-folder-btn')
-  e.target.value ? b.prop('disabled', false) : b.prop('disabled', true)
-}
-
-$('.create-folder-input').on('keyup', (e) => {
-  enableFolderBTN(e)
-})
-
-$('.create-folder-btn').on('click', (e) => {
-  e.preventDefault()
-  let input = $('.create-folder-input').val()
-  postFolder(input)
-  clearInput('.create-folder-input')
-})
+$(() => fetchFolders())
 
 const postFolder = (input) => {
   fetch('/api/v1/folders', {
@@ -58,31 +38,62 @@ const appendFolder = (name, id) => {
   `)
 }
 
-// URL STUFF
-const validateUrl = (url) => {
-  var res = url.match(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/)
-  if(res ) {
-    return true;
-  }
-  else {
-    return false
-  }
+const fetchURLS = (id) => {
+  fetch(`/api/v1/folders/${id}/urls`)
+  .then(response => response.json())
+  .then(urls => {
+    urls.map((url) => {
+      appendURL(url)
+    })
+  })
 }
 
-const addHTTP = (url) => {
-  if(!/^(f|ht)tps?:\/\//i.test(url)) {
-    url = "http://" + url;
-  }
-  return url;
+const postURL = (name, url) => {
+  fetch('/api/v1/urls', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    'body': JSON.stringify({
+      url_name: name,
+      long_url: url,
+      visit_count: 0,
+      folder_id: activeID
+    })
+  })
+  .then(response => response.json())
+  .then(url => appendURL(url))
+  .catch(e => console.log(e))
 }
 
-const enableSaveButton = () => {
-  $('.create-url-btn').prop('disabled', false);
+const appendURL = (object) => {
+  console.log(object)
+  $('.urls').append(`
+    <div class='url-container'>
+      <p class='url-detail'>NAME</p>
+      <p>${object.url_name}</p>
+      <p class='url-detail'>VISIT COUNT</p>
+      <p>${object.visit_count}</p>
+      <p class='url-detail'>COMPLETE URL</p>
+      <a class='each-url' href="/${object.id}">${object.long_url}</a>
+      <p class='url-detail'>SHORT URL</p>
+      <a class='each-url' href="/${object.id}">${document.URL + object.id}</a>
+      <p class='url-detail'>CREATED AT</p>
+      <p>${object.created_at}</p>
+    </div>
+  `)
 }
 
-const disableSaveButton = () => {
-  $('.create-url-btn').prop('disabled', true);
-}
+
+// EVENT HANDLERS
+$('.create-folder-input').on('keyup', (e) => {
+  enableFolderBTN(e)
+})
+
+$('.create-folder-btn').on('click', (e) => {
+  e.preventDefault()
+  let input = $('.create-folder-input').val()
+  postFolder(input)
+  clearInput('.create-folder-input')
+})
 
 $('.site-name-input, .url-input').on('keyup', () => {
   let siteInput = $('.site-name-input').val()
@@ -109,38 +120,6 @@ $('.create-url-btn').on('click', (e) => {
   }
 })
 
-const fetchURLS = (id) => {
-  fetch(`/api/v1/folders/${id}/urls`)
-  .then(response => response.json())
-  .then(urls => {
-    urls.map((url) => {
-      appendURL(url)
-    })
-  })
-}
-
-const appendURL = (object) => {
-  console.log(object)
-  $('.urls').append(`
-    <div class='url-container'>
-      <p class='url-detail'>NAME</p>
-      <p>${object.url_name}</p>
-      <p class='url-detail'>VISIT COUNT</p>
-      <p>${object.visit_count}</p>
-      <p class='url-detail'>COMPLETE URL</p>
-      <a class='each-url' href="/${object.id}">${object.long_url}</a>
-      <p class='url-detail'>SHORT URL</p>
-      <a class='each-url' href="/${object.id}">${document.URL + object.id}</a>
-      <p class='url-detail'>CREATED AT</p>
-      <p>${object.created_at}</p>
-    </div>
-  `)
-}
-
-const clearUrlSection = () => {
-  $('.urls').empty()
-}
-
 $('.folders').on('click', '.folder-btn', (e) => {
   e.preventDefault()
   clearUrlSection()
@@ -150,28 +129,6 @@ $('.folders').on('click', '.folder-btn', (e) => {
   $(e.target).addClass('active').siblings().removeClass('active')
   fetchURLS(activeID)
 })
-
-const sortByVisitsDesc = (urls) => {
-  let sorted = urls.sort((a, b) => {
-    return a.visit_count - b.visit_count
-  })
-  console.log(sorted);
-  sorted.map(descending => appendURL(descending))
-}
-
-const sortByVisitsAsc = (urls) => {
-  let sorted = urls.sort((a, b) => {
-    return b.visit_count - a.visit_count
-  })
-  console.log(sorted);
-  sorted.map(ascending => appendURL(ascending))
-}
-
-const sortByDate = (urls) => {
-  // FIX DIS
-  // maybe restructure moment.js data ? 
-  console.log(urls);
-}
 
 $('.sort-by-date').on('click', (e) => {
 
@@ -215,19 +172,63 @@ $('.sort-by-visits-asc').on('click', (e) => {
   })
 })
 
-const postURL = (name, url) => {
-  fetch('/api/v1/urls', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json'},
-    'body': JSON.stringify({
-      url_name: name,
-      long_url: url,
-      visit_count: 0,
-      folder_id: activeID
-    })
-  })
-  .then(response => response.json())
-  .then(url => appendURL(url))
-  .catch(e => console.log(e))
+
+// HELPERS
+const sortByDate = (urls) => {
+  // FIX DIS
+  // maybe restructure moment.js data ?
+  console.log(urls);
 }
 
+const sortByVisitsDesc = (urls) => {
+  let sorted = urls.sort((a, b) => {
+    return a.visit_count - b.visit_count
+  })
+  console.log(sorted);
+  sorted.map(descending => appendURL(descending))
+}
+
+const sortByVisitsAsc = (urls) => {
+  let sorted = urls.sort((a, b) => {
+    return b.visit_count - a.visit_count
+  })
+  console.log(sorted);
+  sorted.map(ascending => appendURL(ascending))
+}
+
+const clearUrlSection = () => {
+  $('.urls').empty()
+}
+const enableSaveButton = () => {
+  $('.create-url-btn').prop('disabled', false);
+}
+
+const disableSaveButton = () => {
+  $('.create-url-btn').prop('disabled', true);
+}
+
+const clearInput = (input) => {
+  $(`${input}`).val('')
+}
+
+const enableFolderBTN = (e) => {
+  let b = $('.create-folder-btn')
+  e.target.value ? b.prop('disabled', false) : b.prop('disabled', true)
+}
+
+const validateUrl = (url) => {
+  var res = url.match(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/)
+  if(res ) {
+    return true;
+  }
+  else {
+    return false
+  }
+}
+
+const addHTTP = (url) => {
+  if(!/^(f|ht)tps?:\/\//i.test(url)) {
+    url = "http://" + url;
+  }
+  return url;
+}
