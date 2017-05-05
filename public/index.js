@@ -233,5 +233,4 @@ const addHTTP = (url) => {
     url = "http://" + url;
   }
   return url;
-  console.log(url)
 }
