@@ -4,7 +4,6 @@ const path       = require('path')
 const bodyParser = require('body-parser')
 const md5        = require('md5')
 const favicon    = require('serve-favicon')
-// const redirect   = express.Router()
 
 const environment   = process.env.NODE_ENV || 'development'
 const configuration = require('./knexfile')[environment]
