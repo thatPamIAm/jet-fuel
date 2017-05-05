@@ -151,38 +151,47 @@ $('.folders').on('click', '.folder-btn', (e) => {
   fetchURLS(activeID)
 })
 
-const sortByVisits = (urls) => {
+const sortByVisitsDesc = (urls) => {
   let sorted = urls.sort((a, b) => {
     return a.visit_count - b.visit_count
   })
-  sorted.map(descending => appendURL(descending))
   console.log(sorted);
+  sorted.map(descending => appendURL(descending))
+}
+
+const sortByVisitsAsc = (urls) => {
+  let sorted = urls.sort((a, b) => {
+    return b.visit_count - a.visit_count
+  })
+  console.log(sorted);
+  sorted.map(ascending => appendURL(ascending))
 }
 
 const sortByDate = (urls) => {
-  // FIX DIS 
+  // FIX DIS
   let sorted = urls.sort((a, b) => {
     return a.created_at - b.created_at
   })
-
-  // sorted.map(descending => appendURL(descending))
   console.log(sorted);
 }
 
 $('.sort-by-date').on('click', (e) => {
+
   if(!activeID){
     $('.urls').append(`<p>select a folder to sort</p>`)
   }
   e.preventDefault()
+
   fetch(`/api/v1/folders/${activeID}/urls`)
   .then(response => response.json())
   .then(json => {
     clearUrlSection()
-    sortByDate(json)
+    // sortByDate(json)
+    // sortOrder = "descending"
   })
 })
 
-$('.sort-by-visits').on('click', (e) => {
+$('.sort-by-visits-desc').on('click', (e) => {
   if(!activeID){
     $('.urls').append(`<p>select a folder to sort</p>`)
   }
@@ -191,7 +200,20 @@ $('.sort-by-visits').on('click', (e) => {
   .then(response => response.json())
   .then(json => {
     clearUrlSection()
-    sortByVisits(json)
+    sortByVisitsDesc(json)
+  })
+})
+
+$('.sort-by-visits-asc').on('click', (e) => {
+  if(!activeID){
+    $('.urls').append(`<p>select a folder to sort</p>`)
+  }
+  e.preventDefault()
+  fetch(`/api/v1/folders/${activeID}/urls`)
+  .then(response => response.json())
+  .then(json => {
+    clearUrlSection()
+    sortByVisitsAsc(json)
   })
 })
 

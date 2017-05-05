@@ -61,6 +61,11 @@ button:hover {
   background : white;
 }
 
+.sort-btns {
+  display: flex;
+  flex-direction: row;
+}
+
 .content-container {
   display : flex;
 }
