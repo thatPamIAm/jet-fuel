@@ -9,7 +9,7 @@ const favicon    = require('serve-favicon')
 const environment   = process.env.NODE_ENV || 'development'
 const configuration = require('./knexfile')[environment]
 const database      = require('knex')(configuration)
-const moment = require('moment')
+const moment        = require('moment')
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(express.static(path.join(__dirname, 'public')))
@@ -98,4 +98,17 @@ const server = app.listen(app.get('port'), () => {
   console.log('Magic happens on port ' + port);
 });
 
+
+
+// HELPERS
+function formatTime(urls) {
+  urls.map(url => {
+    const created_at = moment(url.created_at).calendar()
+    const updated_at = moment(url.updated_at).calendar()
+    return Object.assign({}, url, { created_at, updated_at })
+  })
+}
+
 module.exports = app
+
+
