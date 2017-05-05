@@ -189,16 +189,15 @@ describe('server side testing', () => {
       })
     })
 
-    describe('GET /:id REDIRECT', () => {
-      it.only('should redirect given the shorturl id', (done) => {
-        chai.request(server)
-        .get('/1')
-        .end((err, res) => {
-          res.status.should.be(200)
-          done()
-        })
-      }).timeout(3333333)
-    })
+    // describe('GET /:id REDIRECT', () => {
+    //   it.only('should redirect given the shorturl id', (done) => {
+    //     chai.request(server)
+    //     .get('/1')
+    //     .end((err, res) => {
+    //       res.status.should.be(200)
+    //       done()
+    //     })
+    //   }).timeout(3333333)
+    // })
   })
 })
-  
