@@ -76,14 +76,30 @@ const addHTTP = (url) => {
   return url;
 }
 
+const enableSaveButton = () => {
+  $('.create-url-btn').prop('disabled', false);
+}
+
+const disableSaveButton = () => {
+  $('.create-url-btn').prop('disabled', true);
+}
+
+$('.site-name-input, .url-input').on('keyup', () => {
+  let siteInput = $('.site-name-input').val()
+  let urlInput  = $('.url-input').val()
+
+  siteInput && urlInput ? enableSaveButton() : disableSaveButton()
+});
+
 $('.create-url-btn').on('click', (e) => {
   e.preventDefault()
 
   let name = $('.site-name-input').val()
   let url  = $('.url-input').val()
 
-  if(validateUrl(url) == false) {
-    $('.urls').append('<p>ERROR. Input a valid URL.</p>')
+  if(validateUrl(url) == false || !activeID) {
+    validateUrl(url) ? $('.urls').append('<p>ERROR. Select a folder.</p>') :
+    $('.urls').append('<p>ERROR. input a valid URL!.</p>')
   }
   else {
     let result = addHTTP(url)
