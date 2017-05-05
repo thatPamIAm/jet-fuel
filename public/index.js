@@ -123,13 +123,16 @@ const appendURL = (object) => {
   console.log(object)
   $('.urls').append(`
     <div class='url-container'>
-      <p>Name: ${object.url_name}</p>
-      <p>Visit Count:${object.visit_count}</p>
-      <p>Complete URL</p>
+      <p class='url-detail'>NAME</p>
+      <p>${object.url_name}</p>
+      <p class='url-detail'>VISIT COUNT</p>
+      <p>${object.visit_count}</p>
+      <p class='url-detail'>COMPLETE URL</p>
       <a class='each-url' href="/${object.id}">${object.long_url}</a>
-      <p>Short Url</p>
+      <p class='url-detail'>SHORT URL</p>
       <a class='each-url' href="/${object.id}">${document.URL + object.id}</a>
-      <p>Created At: ${object.created_at}</p>
+      <p class='url-detail'>CREATED AT</p>
+      <p>${object.created_at}</p>
     </div>
   `)
 }
