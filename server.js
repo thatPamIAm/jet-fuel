@@ -41,7 +41,8 @@ app.get('/api/v1/folders/:id', (request, response) => {
 app.get('/api/v1/folders/:id/urls', (request, response) => {
   database('urls').where('folder_id', request.params.id).select()
     .then(folders => {
-      response.status(200).json(folders)
+      let formatted = formatTime(folders)
+      response.status(200).json(formatted)
     })
     .catch(e => console.log(e))
 })
@@ -53,7 +54,6 @@ app.post('/api/v1/folders', (request, response) => {
   .then(() => {
     database('folders').select()
     .then(folders => {
-      console.log(folders);
       response.status(201).json(folders)
     })
   })
@@ -62,9 +62,8 @@ app.post('/api/v1/folders', (request, response) => {
 app.get('/api/v1/urls', (request, response) => {
   database('urls').select()
     .then(urls => {
-      // let formatted = formatTime(urls)
-      // map through URLS , replace created_at with moment stuff
-      response.status(200).json(urls)
+      let formatted = formatTime(urls)
+      response.status(200).json(formatted)
     })
     .catch(e => console.log(e))
 })
@@ -73,9 +72,9 @@ app.post('/api/v1/urls', (request, response) => {
   const url = request.body
 
   database('urls').insert(url ,[ "url_name","folder_id","long_url", "id", "visit_count"])
-  // map through URLS , replace created_at with moment stuff
     .then((urls) => {
-      response.status(201).json(urls[0])
+      let formatted = formatTime(urls)
+      response.status(201).json(formatted[0])
     })
 })
 
@@ -87,7 +86,6 @@ app.get('/:id', (request, response) => {
   })
   .then(match => {
     const {long_url} = match[0]
-    console.log(long_url);
     response.redirect(`${long_url}`)
   })
 })
@@ -99,14 +97,12 @@ const server = app.listen(app.get('port'), () => {
 });
 
 
-
-// HELPER THAT DOESNT WORK
+// HELPER FUNCTIONS
 const formatTime = (urls) => {
-  urls.map(url => {
+  return urls.map(url => {
+
     const created_at = moment(url.created_at).calendar()
     const updated_at = moment(url.updated_at).calendar()
-
-    console.log(Object.assign({}, url, { created_at, updated_at }));
 
     let newObject = Object.assign({}, url, { created_at, updated_at })
     return newObject
