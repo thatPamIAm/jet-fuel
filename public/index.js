@@ -160,6 +160,9 @@ const sortByVisits = (urls) => {
 }
 
 $('.sort-by-visits').on('click', (e) => {
+  if(!activeID){
+    $('.urls').append(`<p>select a folder to sort</p>`)
+  }
   e.preventDefault()
   console.log('sort');
   fetch(`/api/v1/folders/${activeID}/urls`)
