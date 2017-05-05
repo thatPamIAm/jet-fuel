@@ -171,11 +171,11 @@ describe('server side testing', () => {
         .post(`/api/v1/urls/`)
         .send({ long_url: 'www.turing.io' })
         .end(function (err, res) {
-          res.should.have.status(201);
-          console.log(res.body);
-          const { body } = res;
-          res.should.be.json;
-          body.should.be.a('object');
+          res.should.have.status(201)
+          console.log(res.body)
+          const { body } = res
+          res.should.be.json
+          body.should.be.a('object')
           body.should.have.property('url_name')
           body.should.have.property('folder_id')
           body.should.have.property('long_url')
