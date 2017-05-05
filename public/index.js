@@ -151,6 +151,69 @@ $('.folders').on('click', '.folder-btn', (e) => {
   fetchURLS(activeID)
 })
 
+const sortByVisitsDesc = (urls) => {
+  let sorted = urls.sort((a, b) => {
+    return a.visit_count - b.visit_count
+  })
+  console.log(sorted);
+  sorted.map(descending => appendURL(descending))
+}
+
+const sortByVisitsAsc = (urls) => {
+  let sorted = urls.sort((a, b) => {
+    return b.visit_count - a.visit_count
+  })
+  console.log(sorted);
+  sorted.map(ascending => appendURL(ascending))
+}
+
+const sortByDate = (urls) => {
+  // FIX DIS
+  // maybe restructure moment.js data ? 
+  console.log(urls);
+}
+
+$('.sort-by-date').on('click', (e) => {
+
+  if(!activeID){
+    $('.urls').append(`<p>select a folder to sort</p>`)
+  }
+  e.preventDefault()
+
+  fetch(`/api/v1/folders/${activeID}/urls`)
+  .then(response => response.json())
+  .then(json => {
+    clearUrlSection()
+    // sortByDate(json)
+    // sortOrder = "descending"
+  })
+})
+
+$('.sort-by-visits-desc').on('click', (e) => {
+  if(!activeID){
+    $('.urls').append(`<p>select a folder to sort</p>`)
+  }
+  e.preventDefault()
+  fetch(`/api/v1/folders/${activeID}/urls`)
+  .then(response => response.json())
+  .then(json => {
+    clearUrlSection()
+    sortByVisitsDesc(json)
+  })
+})
+
+$('.sort-by-visits-asc').on('click', (e) => {
+  if(!activeID){
+    $('.urls').append(`<p>select a folder to sort</p>`)
+  }
+  e.preventDefault()
+  fetch(`/api/v1/folders/${activeID}/urls`)
+  .then(response => response.json())
+  .then(json => {
+    clearUrlSection()
+    sortByVisitsAsc(json)
+  })
+})
 
 const postURL = (name, url) => {
   fetch('/api/v1/urls', {
