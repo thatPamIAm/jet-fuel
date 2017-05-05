@@ -151,6 +151,24 @@ $('.folders').on('click', '.folder-btn', (e) => {
   fetchURLS(activeID)
 })
 
+const sortByVisits = (urls) => {
+  let sorted = urls.sort((a, b) => {
+    return a.visit_count - b.visit_count
+  })
+  sorted.map(sort => appendURL(sort))
+  console.log(sorted);
+}
+
+$('.sort-by-visits').on('click', (e) => {
+  e.preventDefault()
+  console.log('sort');
+  fetch(`/api/v1/folders/${activeID}/urls`)
+  .then(response => response.json())
+  .then(json => {
+    clearUrlSection()
+    sortByVisits(json)
+  })
+})
 
 const postURL = (name, url) => {
   fetch('/api/v1/urls', {
